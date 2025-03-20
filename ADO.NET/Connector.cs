@@ -75,7 +75,7 @@ namespace ADO.NET
 		
 		public static void InsertDirector(string first_name, string last_name)
 		{
-			string cmd = $"INSERT Directors(first_name,last_name) VALUES (N'{first_name},{last_name}')";
+			string cmd = $"INSERT Directors(first_name,last_name) VALUES (N'{first_name}',N'{last_name}')";
 			SqlCommand command = new SqlCommand(cmd, connection);
 			connection.Open();
 			command.ExecuteNonQuery();
