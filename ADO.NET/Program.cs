@@ -12,9 +12,10 @@ namespace ADO.NET
 	{
 		static void Main(string[] args)
 		{
+#if INTRO
 			//1) Берем строку подключения:
 			const int PADDING = 30;
-			const string CONNECTION_STRING = 
+			const string CONNECTION_STRING =
 				"Data Source=(localdb)\\MSSQLLocalDB;" +
 				"Initial Catalog=Movies;" +
 				"Integrated Security=True;" +
@@ -35,7 +36,7 @@ namespace ADO.NET
 			//4) Получаем результаты выполнения команды:
 			connection.Open();
 			SqlDataReader reader = command.ExecuteReader();
-			
+
 
 			//5) Обрабатываем результаты запросов:
 			if (reader.HasRows)
@@ -48,7 +49,7 @@ namespace ADO.NET
 				while (reader.Read())
 				{
 					//Console.WriteLine($"{ reader[0].ToString().PadRight(5)}{ reader[2].ToString().PadRight(10)}{ reader[1]}");
-					for(int i = 0; i < reader.FieldCount; i++)
+					for (int i = 0; i < reader.FieldCount; i++)
 					{
 						Console.Write(reader[i].ToString().PadRight(PADDING));
 					}
@@ -61,8 +62,13 @@ namespace ADO.NET
 			connection.Close();
 
 
-			//Console.Read();
-
+			//Console.Read();  
+#endif
+			//Connector.Select("*", "Directors");
+			//Connector.Select("title,release_date,FORMATMESSAGE(N'%s %s',first_name,last_name)", "Movies,Directors", "director=director_id");
+			Connector.InsertDirector("George", "Martin");
+			Connector.SelectDirectors();
+			Connector.SelectMovies();
 		}
 	}
 }
