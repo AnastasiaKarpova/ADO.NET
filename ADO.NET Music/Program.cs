@@ -5,14 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Data.SqlClient;
+
 namespace ADO.NET_Music
 {
 	internal class Program
 	{
 		static void Main(string[] args)
 		{
+			#region MyRegion
 			const int PADDING = 30;
-			const string CONNECTION_STRING = 
+			const string CONNECTION_STRING =
 				"Data Source=(localdb)\\MSSQLLocalDB;" +
 				"Initial Catalog=Music;" +
 				"Integrated Security=True;" +
@@ -32,16 +35,16 @@ namespace ADO.NET_Music
 			SqlCommand command = new SqlCommand(cmd, connection);
 			connection.Open();
 			SqlDataReader reader = command.ExecuteReader();
-			if(reader.HasRows)
+			if (reader.HasRows)
 			{
 				Console.WriteLine("=================================================================");
-				for(int i=0; i < reader.FieldCount; i++)
+				for (int i = 0; i < reader.FieldCount; i++)
 					Console.Write(reader.GetName(i).PadRight(PADDING));
 				Console.WriteLine();
 				Console.WriteLine("=================================================================");
-				while(reader.Read())
+				while (reader.Read())
 				{
-					for(int i = 0; i < reader.FieldCount; i++)
+					for (int i = 0; i < reader.FieldCount; i++)
 					{
 						Console.Write(reader[i].ToString().PadRight(PADDING));
 					}
@@ -49,7 +52,10 @@ namespace ADO.NET_Music
 				}
 			}
 			reader.Close();
-			connection.Close();
+			connection.Close(); 
+			#endregion
+
+
 		}
 	}
 }
