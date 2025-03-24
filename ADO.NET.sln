@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADO.NET", "ADO.NET\ADO.NET.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADO.NET Music", "ADO.NET Music\ADO.NET Music.csproj", "{5DBFD4FF-8CF6-4820-B961-715B93B07F74}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalBase", "ExternalBase\ExternalBase.csproj", "{381D0526-AD65-4718-AC7A-0ECB3CE475B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{5DBFD4FF-8CF6-4820-B961-715B93B07F74}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DBFD4FF-8CF6-4820-B961-715B93B07F74}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DBFD4FF-8CF6-4820-B961-715B93B07F74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{381D0526-AD65-4718-AC7A-0ECB3CE475B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{381D0526-AD65-4718-AC7A-0ECB3CE475B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{381D0526-AD65-4718-AC7A-0ECB3CE475B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{381D0526-AD65-4718-AC7A-0ECB3CE475B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
