@@ -26,24 +26,38 @@ namespace ExternalBase
 			SqlCommand command = new SqlCommand(cmd, connection);
 			connection.Open();
 			SqlDataReader reader = command.ExecuteReader();
-			if(reader.HasRows)
+			if (reader.HasRows)
 			{
-				for(int i = 0; i < reader.FieldCount; i++)
+				for (int i = 0; i < reader.FieldCount; i++)
 				{
 					Console.Write(reader.GetName(i).PadRight(PADDING));
 				}
 			}
 			Console.WriteLine();
-			while(reader.Read())
+			while (reader.Read())
 			{
-				for(int i = 0; i < reader.FieldCount; i++)
+				for (int i = 0; i < reader.FieldCount; i++)
 				{
 					Console.Write(reader[i].ToString().PadRight(PADDING));
 				}
 				Console.WriteLine();
 			}
 			reader.Close();
+			string sqlExpression = "SELECT discipline_id('Объектно') FROM Disciplines";
+			SqlCommand com = new SqlCommand(sqlExpression, connection);
+			object id = command.ExecuteScalar();
+
 			connection.Close();
+		}
+		static void RetrieveIdentity(string connectionString)
+		{
+			using (SqlConnection connection = new SqlConnection (connectionString))
+			{
+				SqlDataAdapter adapter = new SqlDataAdapter("SELECT discipline_id FROM Discipline", connection)
+				{
+					InsertCommand = new SqlCommand("")
+				};
+			}
 		}
 	}
 }
