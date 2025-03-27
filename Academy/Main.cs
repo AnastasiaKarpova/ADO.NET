@@ -24,6 +24,10 @@ namespace Academy
 				);
 			//dgv - DataGridView
 			dgvStudents.DataSource = connector.Select("*", "Students");
+			dgvGroups.DataSource = connector.Select("*", "Groups");
+			dgvDirections.DataSource = connector.Select("*", "Directions");
+			dgvDisciplines.DataSource = connector.Select("*", "Disciplines");
+			dgvTeachers.DataSource = connector.Select("*", "Teachers");
 		}
 	}
 }
