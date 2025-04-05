@@ -34,7 +34,6 @@ namespace AcademyDataSet
 			GroupsRelatedData = new DataSet(nameof(GroupsRelatedData));
 			//LoadGroupsRelatedData();
 			Check();
-
 		}
 		public void AddTable(string table, string columns)
 		{
@@ -127,6 +126,8 @@ namespace AcademyDataSet
 		}
 		void Print (string table)
 		{
+			Console.WriteLine("\n-----------------------------------\n");
+			Console.WriteLine(hasParents(table));
 			foreach(DataRow row in GroupsRelatedData.Tables[table].Rows)
 			{
 				for(int i = 0;i<row.ItemArray.Length;i++)
@@ -135,6 +136,18 @@ namespace AcademyDataSet
 				}
 				Console.WriteLine();
 			}
+			Console.WriteLine("\n-----------------------------------\n");
+		}
+		bool hasParents(string table)
+		{
+			bool yes = GroupsRelatedData.Relations.Contains(table);
+			//Console.WriteLine(yes);
+			//Console.WriteLine(GroupsRelatedData.Relations.ToString());
+			for(int i = 0; i < GroupsRelatedData.Relations.Count;i++)
+			{
+				if (GroupsRelatedData.Relations[i].ChildTable.TableName == table) return true;
+			}
+			return false;
 		}
 		void Check()
 		{
