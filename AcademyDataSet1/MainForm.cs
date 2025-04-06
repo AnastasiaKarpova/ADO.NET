@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-//using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 using System.Data.SqlClient;
 using System.Configuration;
 
-namespace AcademyDataSet
+namespace AcademyDataSet1
 {
 	public partial class MainForm : Form
 	{
@@ -28,7 +27,7 @@ namespace AcademyDataSet
 			CONNECTION_STRING = ConfigurationManager.ConnectionStrings["PV_319_Import"].ConnectionString;
 			connection = new SqlConnection(CONNECTION_STRING);
 			Console.WriteLine(CONNECTION_STRING);
-			
+
 			tables = new List<string>();
 			GroupsRelatedData = new DataSet(nameof(GroupsRelatedData));
 			//LoadGroupsRelatedData();
@@ -38,7 +37,7 @@ namespace AcademyDataSet
 		{
 			string[] separated_columns = columns.Split(',');
 			GroupsRelatedData.Tables.Add(table);
-			for(int i = 0; i < separated_columns.Length; i++)
+			for (int i = 0; i < separated_columns.Length; i++)
 			{
 				GroupsRelatedData.Tables[table].Columns.Add(separated_columns[i]);
 			}
@@ -59,7 +58,7 @@ namespace AcademyDataSet
 		{
 			//SqlDataAdapter adapter = new SqlDataAdapter();
 			string[] tables = this.tables.ToArray();
-			for(int i = 0; i < tables.Length; i++)
+			for (int i = 0; i < tables.Length; i++)
 			{
 				string cmd = $"SELECT * FROM {tables[i].Split(',')[0]}";
 				SqlDataAdapter adapter = new SqlDataAdapter(cmd, connection);
@@ -71,7 +70,7 @@ namespace AcademyDataSet
 			Console.WriteLine(nameof(GroupsRelatedData));
 			//1)Создаем 'DataSet:
 			//Перенесли в конструктор.
-			
+
 			//2) Добавляем таблицы в 'DataSet':
 
 			const string dsTable_Directions = "Directions";
@@ -99,12 +98,12 @@ namespace AcademyDataSet
 				(
 				dsRelation_GroupsDirections, //relation_name
 				GroupsRelatedData.Tables["Directions"].Columns["direction_id"], //Parent field (Primary key)
-				GroupsRelatedData.Tables["Groups"].Columns["direction"]			//Child field (Foreign key)
+				GroupsRelatedData.Tables["Groups"].Columns["direction"]         //Child field (Foreign key)
 				);
 
 			//4) Загружаем данные в таблицы:
-			string directions_cmd	= "SELECT * FROM Directions";
-			string groups_cmd		= "SELECT * FROM Groups";
+			string directions_cmd = "SELECT * FROM Directions";
+			string groups_cmd = "SELECT * FROM Groups";
 			SqlDataAdapter directionsAdapter = new SqlDataAdapter(directions_cmd, connection);
 			SqlDataAdapter groupsAdapter = new SqlDataAdapter(groups_cmd, connection);
 
@@ -118,18 +117,18 @@ namespace AcademyDataSet
 				Console.WriteLine($"{row[dst_col_direction_id]}\t{row[dst_col_direction_name]}");
 			}
 			Console.WriteLine("\n-------------------------------------------------------\n");
-			foreach(DataRow row in GroupsRelatedData.Tables[dsTable_Groups].Rows)
+			foreach (DataRow row in GroupsRelatedData.Tables[dsTable_Groups].Rows)
 			{
 				Console.WriteLine($"{row[dst_Groups_col_group_id]}\t{row[dst_Groups_col_group_name]}\t{row.GetParentRow(dsRelation_GroupsDirections)[dst_col_direction_name]}");
 			}
 		}
-		void Print (string table)
+		void Print(string table)
 		{
 			Console.WriteLine("\n-----------------------------------\n");
 			Console.WriteLine(hasParents(table));
-			foreach(DataRow row in GroupsRelatedData.Tables[table].Rows)
+			foreach (DataRow row in GroupsRelatedData.Tables[table].Rows)
 			{
-				for(int i = 0; i < row.ItemArray.Length; i++)
+				for (int i = 0; i < row.ItemArray.Length; i++)
 				{
 					Console.Write(row[i].ToString() + "\t");
 				}
@@ -142,7 +141,7 @@ namespace AcademyDataSet
 			//bool yes = GroupsRelatedData.Relations.Contains(table);
 			//Console.WriteLine(yes);
 			//Console.WriteLine(GroupsRelatedData.Relations.ToString());
-			for(int i = 0; i < GroupsRelatedData.Relations.Count; i++)
+			for (int i = 0; i < GroupsRelatedData.Relations.Count; i++)
 			{
 				if (GroupsRelatedData.Relations[i].ChildTable.TableName == table) return true;
 			}
@@ -152,10 +151,10 @@ namespace AcademyDataSet
 		{
 			AddTable("Directions", "direction_id,direction_name");
 			AddTable("Groups", "group_id,group_name,direction");
-			AddRelation("GroupsDirections", "Groups,direction","Directions,direction_id");
+			AddRelation("GroupsDirections", "Groups,direction", "Directions,direction_id");
 			Load();
 			Print("Directions");
-			Print("Groups");
+			//Print("Groups");
 		}
 		[DllImport("kernel32.dll")]
 		public static extern bool AllocConsole();
