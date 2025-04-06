@@ -42,12 +42,47 @@ namespace ExternalBase
 				}
 				Console.WriteLine();
 			}
-			reader.Close();
-			string sqlExpression = "SELECT discipline_id('Объектно') FROM Disciplines";
-			SqlCommand com = new SqlCommand(sqlExpression, connection);
-			object id = command.ExecuteScalar();
+			//reader.Close();
+			//string sqlExpression = "SELECT discipline_id('Объектно') FROM Disciplines";
+			//SqlCommand com = new SqlCommand(sqlExpression, connection);
+			//object id = command.ExecuteScalar();
 
 			connection.Close();
+		}
+		public static int ID(string fields, string table, string condition)
+		{
+			string cmd = $"SELECT {fields} FROM {table} WHERE {condition}";
+			SqlCommand command = new SqlCommand(cmd, connection);
+			connection.Open();
+			try
+			{
+				object res = command.ExecuteScalar();
+				connection.Close();
+				return Convert.ToInt32(res);
+			}
+			catch (Exception ex)
+			{
+				connection.Close();
+				return 0;
+			}
+		}
+		public static int DisciplineID(string discipline_name)
+		{
+			return ID("discipline_id", "Disciplines", $"discipline_name=N'{discipline_name}");
+		}
+		public static int TeacherID(string last_name)
+		{
+			return ID("teacher_id", "Teachers", $"last_name=N'{last_name}");
+		}
+		public static int CountStudents (string table)
+		{
+			int count = 0;
+			string cmd = $"SELECT COUNT(*) FROM {table}";
+			SqlCommand command = new SqlCommand(cmd, connection);
+			connection.Open();
+			count = Convert.ToInt32(command.ExecuteScalar());
+			connection.Close();
+			return count;
 		}
 		static void RetrieveIdentity(string connectionString)
 		{
@@ -59,5 +94,6 @@ namespace ExternalBase
 				};
 			}
 		}
+		
 	}
 }
