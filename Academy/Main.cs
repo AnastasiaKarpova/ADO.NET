@@ -166,5 +166,19 @@ namespace Academy
 			query.Condition = (i == 0 || cbStudentsDirection.SelectedItem == null ? "" : $"direction={d_directions[cbStudentsDirection.SelectedItem.ToString()]}");
 			LoadPage(0, query);
 		}
+
+		private void ckbDirectionsNull_Click(object sender, EventArgs e)
+		{
+			dgvDirections.DataSource = connector.Select
+				(
+				"direction_name, COUNT(DISTINCT group_id) AS group_count, COUNT(DISTINCT stud_id) AS student_count",
+				"Students RIGHT JOIN Groups ON ([group]=group_id) RIGHT JOIN Directions ON (direction=direction_id)",
+				"",
+				"direction_name HAVING COUNT(group_id) = 0 AND COUNT(stud_id) = 0"
+				);
+			toolStripStatusLabelCount.Text = $"Количество пустых направлений: {CountRecordsInDGV(dgvDirections)}";
+		}
+
+		
 	}
 }
