@@ -34,6 +34,17 @@ namespace AcademyDataSet
 			GroupsRelatedData = new DataSet(nameof(GroupsRelatedData));
 			//LoadGroupsRelatedData();
 			Check();
+			//Загружаем направления из базы в ComboBox: 
+			//1) Направления обучения уже загружены в таблицу в DataSet, и эту таблицу мы указываем как источник данных:
+			cbDirections.DataSource = GroupsRelatedData.Tables["Directions"];
+			//2) Из множества полей таблицы нужно указать какое поле будет отображаться в выпадающем списке,
+			cbDirections.DisplayMember = "direction_name";
+			//3) и какое поле будет возвращаться при выборе элемента ComboBox
+			cbDirections.ValueMember = "direction_id";
+
+			cbGroups.DataSource = GroupsRelatedData.Tables["Groups"];
+			cbGroups.DisplayMember = "group_name";
+			cbGroups.ValueMember = "group_id";
 		}
 		public void AddTable(string table, string columns)
 		{
@@ -215,5 +226,16 @@ namespace AcademyDataSet
 
 		[DllImport("kernel32.dll")]
 		public static extern bool FreeConsole();
+
+		private void cbDirections_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			//Console.WriteLine(GroupsRelatedData.Tables["Directions"].ChildRelations);
+			//DataRow row = GroupsRelatedData.Tables["Directions"].Rows.Find(cbDirections.SelectedValue);
+			//GroupsRelatedData.Tables["Directions"].Rows.Find(cbDirections.SelectedIndex);
+			//cbGroups.DataSource = row.GetChildRows("GroupsDirections");
+			//cbGroups.DisplayMember = "group_name";
+			//cbGroups.ValueMember = "group_id";
+			GroupsRelatedData.Tables["Groups"].DefaultView.RowFilter = $"direction={cbDirections.SelectedValue}";
+		}
 	}
 }
