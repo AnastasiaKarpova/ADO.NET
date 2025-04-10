@@ -21,6 +21,7 @@ namespace AcademyDataSet
 		SqlConnection connection;
 		DataSet GroupsRelatedData;
 		List<string> tables;
+		List<string> commands;
 		public MainForm()
 		{
 			InitializeComponent();
@@ -65,7 +66,16 @@ namespace AcademyDataSet
 			string[] tables = this.tables.ToArray();
 			for(int i = 0; i < tables.Length; i++)
 			{
-				string cmd = $"SELECT * FROM {tables[i].Split(',')[0]}"; //???
+				string columns = "";
+				DataColumnCollection column_collection = GroupsRelatedData.Tables[tables[i].Split(',')[0]].Columns;
+				foreach(DataColumn column in column_collection)
+				{
+					columns += $"[{column.ColumnName}],";
+				}
+				columns = columns.Remove(columns.LastIndexOf(','));
+				Console.WriteLine(columns);
+				//Console.WriteLine(GroupsRelatedData.Tables[tables[i].Split(',')[0]].Columns.ToString());
+				string cmd = $"SELECT {columns} FROM {tables[i].Split(',')[0]}"; //???
 				SqlDataAdapter adapter = new SqlDataAdapter(cmd, connection);
 				adapter.Fill(GroupsRelatedData.Tables[tables[i].Split(',')[0]]);
 			}
