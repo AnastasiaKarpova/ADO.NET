@@ -47,6 +47,10 @@ namespace AcademyDataSet
 		}
 		public void AddRelation(string name, string child, string parent)
 		{
+			//DataTable parent_table = GroupsRelatedData.Tables[parent.Split(',')[0]];
+			//DataTable child_table = GroupsRelatedData.Tables[child.Split(',')[0]];
+			//DataColumn parent_column = parent_table.Columns[parent.Split(',')[1]];
+			//DataColumn child_column = parent_table.Columns[child.Split(',')[1]];
 			GroupsRelatedData.Relations.Add
 				(
 				name,
