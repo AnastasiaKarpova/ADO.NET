@@ -30,6 +30,7 @@
 		{
 			this.cbGroups = new System.Windows.Forms.ComboBox();
 			this.cbDirections = new System.Windows.Forms.ComboBox();
+			this.btRefresh = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// cbGroups
@@ -51,11 +52,21 @@
 			this.cbDirections.TabIndex = 1;
 			this.cbDirections.SelectedIndexChanged += new System.EventHandler(this.cbDirections_SelectedIndexChanged);
 			// 
+			// btRefresh
+			// 
+			this.btRefresh.Location = new System.Drawing.Point(-1, 12);
+			this.btRefresh.Name = "btRefresh";
+			this.btRefresh.Size = new System.Drawing.Size(75, 23);
+			this.btRefresh.TabIndex = 2;
+			this.btRefresh.Text = "Refresh";
+			this.btRefresh.UseVisualStyleBackColor = true;
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.Controls.Add(this.btRefresh);
 			this.Controls.Add(this.cbDirections);
 			this.Controls.Add(this.cbGroups);
 			this.Name = "MainForm";
@@ -68,6 +79,7 @@
 
 		private System.Windows.Forms.ComboBox cbGroups;
 		private System.Windows.Forms.ComboBox cbDirections;
+		private System.Windows.Forms.Button btRefresh;
 	}
 }
 

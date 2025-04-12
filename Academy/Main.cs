@@ -150,6 +150,12 @@ namespace Academy
 
 		private void cbStudentsDirection_SelectedIndexChanged(object sender, EventArgs e)
 		{
+			string combo_box_name = (sender as ComboBox).Name;
+			string tab_name = tabControl.SelectedTab.Name;
+			Console.WriteLine(tab_name);
+
+			
+
 			int i = cbStudentsDirection.SelectedIndex;
 			Dictionary<string, int> d_groups = connector.GetDictionary
 				("group_id,group_name", "Groups", i == 0 ? "" : $"direction={d_directions[cbStudentsDirection.SelectedItem.ToString()]}");
