@@ -18,6 +18,8 @@ namespace AcademyDataSet
 	public partial class MainForm : Form
 	{
 		Cache GroupsRelatedData;
+		public virtual bool EnableCaching { get; set; }
+		public virtual int CacheDuretion { get; set; }
 		//readonly string CONNECTION_STRING = "";
 		//SqlConnection connection;
 		//DataSet GroupsRelatedData;
@@ -36,10 +38,13 @@ namespace AcademyDataSet
 			GroupsRelatedData.Print("Directions");
 			GroupsRelatedData.Print("Groups");
 
+			EnableCaching = true;
+			CacheDuretion = 300;
+
 			//CONNECTION_STRING = ConfigurationManager.ConnectionStrings["PV_319_Import"].ConnectionString;
 			//connection = new SqlConnection(CONNECTION_STRING);
 			//Console.WriteLine(CONNECTION_STRING);
-			
+
 			//tables = new List<string>();
 			//GroupsRelatedData = new DataSet(nameof(GroupsRelatedData));
 			////LoadGroupsRelatedData();

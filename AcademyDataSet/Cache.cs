@@ -14,8 +14,10 @@ namespace AcademyDataSet
 		readonly string CONNECTION_STRING = "";
 		SqlConnection connection;
 		public DataSet Set { get; set; }
+		
 		List<string> tables;
 		List<string> commands;
+		
 		public Cache()
 		{
 			CONNECTION_STRING = ConfigurationManager.ConnectionStrings["PV_319_Import"].ConnectionString;
@@ -24,6 +26,7 @@ namespace AcademyDataSet
 
 			tables = new List<string>();
 			Set = new DataSet(nameof(Set));
+
 			//LoadGroupsRelatedData();
 			//Check();
 		}
