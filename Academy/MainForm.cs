@@ -183,7 +183,7 @@ namespace Academy
 
 			//	);
 			Query query = new Query(queries[tabControl.SelectedIndex]);
-			string condition = (i == 0 || (sender as ComboBox).SelectedItem == null ? "" : $"[{cb_suffix.ToLower()}]=[{dictionary[$"{(sender as ComboBox).SelectedItem}"]}]");
+			string condition = (i == 0 || (sender as ComboBox).SelectedItem == null ? "" : $"[{cb_suffix.ToLower()}]={dictionary[$"{(sender as ComboBox).SelectedItem}"]}");
 			if (query.Condition == "") query.Condition = condition;
 			else if (condition != "") query.Condition += $" AND {condition}";
 			LoadPage(tabControl.SelectedIndex, query);
