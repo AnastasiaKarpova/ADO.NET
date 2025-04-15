@@ -1,6 +1,6 @@
 ﻿namespace Academy
 {
-	partial class Main
+	partial class MainForm
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -39,12 +39,12 @@
 			this.cbGroupsDirection = new System.Windows.Forms.ComboBox();
 			this.dgvGroups = new System.Windows.Forms.DataGridView();
 			this.tabPageDirections = new System.Windows.Forms.TabPage();
+			this.ckbDirectionsNull = new System.Windows.Forms.CheckBox();
 			this.dgvDirections = new System.Windows.Forms.DataGridView();
 			this.tabPageDisciplines = new System.Windows.Forms.TabPage();
 			this.dgvDisciplines = new System.Windows.Forms.DataGridView();
 			this.tabPageTeachers = new System.Windows.Forms.TabPage();
 			this.dgvTeachers = new System.Windows.Forms.DataGridView();
-			this.ckbDirectionsNull = new System.Windows.Forms.CheckBox();
 			this.statusStrip.SuspendLayout();
 			this.tabControl.SuspendLayout();
 			this.tabPageStudents.SuspendLayout();
@@ -112,7 +112,7 @@
 			this.cbStudentsDirection.Name = "cbStudentsDirection";
 			this.cbStudentsDirection.Size = new System.Drawing.Size(312, 24);
 			this.cbStudentsDirection.TabIndex = 2;
-			this.cbStudentsDirection.SelectedIndexChanged += new System.EventHandler(this.cbDirection_SelectedIndexChanged);
+			this.cbStudentsDirection.SelectedIndexChanged += new System.EventHandler(this.ComboBox_SelectedIndexChanged);
 			// 
 			// cbStudentsGroup
 			// 
@@ -121,6 +121,7 @@
 			this.cbStudentsGroup.Name = "cbStudentsGroup";
 			this.cbStudentsGroup.Size = new System.Drawing.Size(336, 24);
 			this.cbStudentsGroup.TabIndex = 1;
+			this.cbStudentsGroup.SelectedIndexChanged += new System.EventHandler(this.ComboBox_SelectedIndexChanged);
 			// 
 			// dgvStudents
 			// 
@@ -157,7 +158,7 @@
 			this.cbGroupsDirection.Name = "cbGroupsDirection";
 			this.cbGroupsDirection.Size = new System.Drawing.Size(393, 24);
 			this.cbGroupsDirection.TabIndex = 1;
-			this.cbGroupsDirection.SelectedIndexChanged += new System.EventHandler(this.cbDirection_SelectedIndexChanged);
+			this.cbGroupsDirection.SelectedIndexChanged += new System.EventHandler(this.ComboBox_SelectedIndexChanged);
 			// 
 			// dgvGroups
 			// 
@@ -184,6 +185,17 @@
 			this.tabPageDirections.TabIndex = 2;
 			this.tabPageDirections.Text = "Directions";
 			this.tabPageDirections.UseVisualStyleBackColor = true;
+			// 
+			// ckbDirectionsNull
+			// 
+			this.ckbDirectionsNull.AutoSize = true;
+			this.ckbDirectionsNull.Location = new System.Drawing.Point(4, 7);
+			this.ckbDirectionsNull.Name = "ckbDirectionsNull";
+			this.ckbDirectionsNull.Size = new System.Drawing.Size(232, 20);
+			this.ckbDirectionsNull.TabIndex = 1;
+			this.ckbDirectionsNull.Text = "Показать пустые направления";
+			this.ckbDirectionsNull.UseVisualStyleBackColor = true;
+			this.ckbDirectionsNull.Click += new System.EventHandler(this.ckbDirectionsNull_Click);
 			// 
 			// dgvDirections
 			// 
@@ -249,18 +261,7 @@
 			this.dgvTeachers.Size = new System.Drawing.Size(796, 345);
 			this.dgvTeachers.TabIndex = 0;
 			// 
-			// ckbDirectionsNull
-			// 
-			this.ckbDirectionsNull.AutoSize = true;
-			this.ckbDirectionsNull.Location = new System.Drawing.Point(4, 7);
-			this.ckbDirectionsNull.Name = "ckbDirectionsNull";
-			this.ckbDirectionsNull.Size = new System.Drawing.Size(232, 20);
-			this.ckbDirectionsNull.TabIndex = 1;
-			this.ckbDirectionsNull.Text = "Показать пустые направления";
-			this.ckbDirectionsNull.UseVisualStyleBackColor = true;
-			this.ckbDirectionsNull.Click += new System.EventHandler(this.ckbDirectionsNull_Click);
-			// 
-			// Main
+			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -268,7 +269,7 @@
 			this.Controls.Add(this.tabControl);
 			this.Controls.Add(this.statusStrip);
 			this.MinimumSize = new System.Drawing.Size(640, 480);
-			this.Name = "Main";
+			this.Name = "MainForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Academy_PV_319";
 			this.statusStrip.ResumeLayout(false);

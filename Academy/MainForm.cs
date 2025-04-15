@@ -12,7 +12,7 @@ using System.Configuration;
 
 namespace Academy
 {
-	public partial class Main : Form
+	public partial class MainForm : Form
 	{
 		Connector connector;
 
@@ -50,7 +50,7 @@ namespace Academy
 			$"Количество дисциплин: ",
 			$"Количество преподавателей: ",
 		};
-		public Main()
+		public MainForm()
 		{
 			InitializeComponent();
 			tables = new DataGridView[]
@@ -150,7 +150,7 @@ namespace Academy
 			return dgv.RowCount == 0 ? 0 : dgv.RowCount - 1;
 		}
 
-		private void cbDirection_SelectedIndexChanged(object sender, EventArgs e)
+		private void ComboBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			string cb_name = (sender as ComboBox).Name;
 			string tab_name = tabControl.SelectedTab.Name;
@@ -169,7 +169,7 @@ namespace Academy
 			#region Filtercb_StudentsGroup
 			//Фильтруем выпадающий список групп на вкладке 'Students':
 			Dictionary<string, int> d_groups = connector.GetDictionary
-				("group_id,group_name", "Groups", i == 0 ? "" : $"{cb_suffix.ToLower()}={dictionary[(sender as ComboBox).SelectedItem.ToString()]}");
+				("group_id,group_name", "Groups", i == 0 ? "" : $"[{cb_suffix.ToLower()}]={dictionary[(sender as ComboBox).SelectedItem.ToString()]}");
 			cbStudentsGroup.Items.Clear();
 			cbStudentsGroup.Items.AddRange(d_groups.Select(g => g.Key).ToArray());
 			//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
@@ -183,12 +183,12 @@ namespace Academy
 
 			//	);
 			Query query = new Query(queries[tabControl.SelectedIndex]);
-			string condition = (i == 0 || (sender as ComboBox).SelectedItem == null ? "" : $"{cb_suffix.ToLower()}={dictionary[$"{(sender as ComboBox).SelectedItem}"]}");
+			string condition = (i == 0 || (sender as ComboBox).SelectedItem == null ? "" : $"[{cb_suffix.ToLower()}]=[{dictionary[$"{(sender as ComboBox).SelectedItem}"]}]");
 			if (query.Condition == "") query.Condition = condition;
 			else if (condition != "") query.Condition += $" AND {condition}";
 			LoadPage(tabControl.SelectedIndex, query);
 		}
-
+		
 		private void ckbDirectionsNull_Click(object sender, EventArgs e)
 		{
 			dgvDirections.DataSource = connector.Select
