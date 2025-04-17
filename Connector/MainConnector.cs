@@ -1,34 +1,41 @@
-﻿//#define OLD
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
-using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Runtime.InteropServices;
 
-namespace Academy
+namespace Connector
 {
-	internal class Connector
+	public partial class MainConnector : Form
 	{
 		readonly string CONNECTION_STRING;
 		SqlConnection connection;
-		public Connector (string connection_String)
+		public MainConnector()
+		{
+			InitializeComponent();
+
+		}
+		public MainConnector(string connection_String)
 		{
 			//CONNECTION_STRING = ConfigurationManager.ConnectionStrings["PV_319_Import"].ConnectionString;
 			CONNECTION_STRING = connection_String;
-			connection = new SqlConnection (CONNECTION_STRING);
+			connection = new SqlConnection(CONNECTION_STRING);
 			AllocConsole();
 			Console.WriteLine(CONNECTION_STRING);
 		}
-		~Connector()
+		~MainConnector()
 		{
 			FreeConsole();
 		}
-		public Dictionary<string, int> GetDictionary(string columns, string tables, string condition="")
+		public Dictionary<string, int> GetDictionary(string columns, string tables, string condition = "")
 		{
 			Dictionary<string, int> values = new Dictionary<string, int>();
 			string cmd = $"SELECT {columns} FROM {tables}";
@@ -36,9 +43,9 @@ namespace Academy
 			SqlCommand command = new SqlCommand(cmd, connection);
 			connection.Open();
 			SqlDataReader reader = command.ExecuteReader();
-			if(reader.HasRows)
+			if (reader.HasRows)
 			{
-				while(reader.Read())
+				while (reader.Read())
 				{
 					values[reader[1].ToString()] = Convert.ToInt32(reader[0]);
 				}
@@ -64,30 +71,12 @@ namespace Academy
 				//1) Создаем таблицу:
 				table = new DataTable();
 				table.Load(reader);
-#if OLD
-				//2) Добавляем в нее поля:
-				for (int i = 0; i < reader.FieldCount; i++)
-				{
-					table.Columns.Add();
-				}
-
-				//3) Заполняем таблицу:
-				while (reader.Read())
-				{
-					DataRow row = table.NewRow();
-					for (int i = 0; i < reader.FieldCount; i++)
-					{
-						row[i] = reader[i];
-					}
-					table.Rows.Add(row);
-				}
-#endif
 			}
 			reader.Close();
 			connection.Close();
 
 			return table;
-	}
+		}
 		[DllImport("kernel32.dll")]
 		public static extern bool AllocConsole();
 		[DllImport("kernel32.dll")]
